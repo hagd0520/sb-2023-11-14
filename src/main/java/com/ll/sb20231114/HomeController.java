@@ -18,6 +18,20 @@ public class HomeController {
     @GetMapping("/about")
     @ResponseBody
     String showAbout() {
-    return "개발자 커뮤니티";
+        return "개발자 커뮤니티";
+    }
+
+    @GetMapping("/calc")
+    @ResponseBody
+    String showCalc(int a, int b) {
+        // 스프링부트에선 값이 제공되지 않을 때 null을 넣는다
+        // 하지만 원시 변수형엔 null을 넣을 수 없어 오류가 난다.
+        return "계산 결과 : %d".formatted(a + b);
+    }
+
+    @GetMapping("/calc2")
+    @ResponseBody
+    String showCalc2(Integer a, Integer b) {
+        return "a : " + a + ", b : " + b;
     }
 }
