@@ -3,6 +3,7 @@ package com.ll.sb20231114;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,7 +17,8 @@ import java.util.Map;
 public class HomeController {
 
     @GetMapping("/")
-    @ResponseBody // 이 함수의 리턴값을 그대로 브라우저에 전송하라는 의미
+    @ResponseBody
+        // 이 함수의 리턴값을 그대로 브라우저에 전송하라는 의미
     String showMain() {
         System.out.println("안녕하세요!!!");
         return "안녕하세요.";
@@ -116,7 +118,7 @@ public class HomeController {
             String name, int age
     ) {
         Map<String, Object> personMap = Map.of(
-                "name",name,
+                "name", name,
                 "age", age
         );
         return new Person2(name, age);
@@ -227,6 +229,38 @@ public class HomeController {
                 """.formatted(subject, content);
 
         return html;
+    }
+
+    @GetMapping("/calc20")
+    String showCalc20() {
+        return "calc20";
+    }
+
+    @GetMapping("/calc21")
+    String showCalc21(Model model) {
+        model.addAttribute("v1", "안녕");
+        model.addAttribute("v2", "반가워");
+        return "calc21";
+    }
+
+    // 문제
+    //@GetMapping("/calc22")
+    //int showCalc21() {
+    //   // 예시 : ???++; // 이 부분을 코딩해보세요.
+    //   return num;
+    //}
+    // 1st GET /calc22 => 1
+    // 2nd GET /calc22 => 2
+    // 3rd GET /calc22 => 3
+    // 4th GET /calc22 => 4
+    // ...
+    // 100th GET /calc22 => 100
+    int num = 0;
+    @GetMapping("/calc22")
+    @ResponseBody
+    int showCalc22() {
+        num++;
+        return num;
     }
 }
 
